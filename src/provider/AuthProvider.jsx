@@ -1,11 +1,14 @@
 import { createContext } from "react";
+import PropTypes from 'prop-types'
 
 export const AuthContext = createContext(null);
 
 const AuthProvider = ({ children }) => {
+
     const userInfo = {
         name: 'tareq'
     }
+    
     return (
         <AuthContext.Provider value={userInfo} >
             {children}
@@ -13,4 +16,7 @@ const AuthProvider = ({ children }) => {
     );
 };
 
+AuthProvider.propTypes = {
+    children: PropTypes.node
+}
 export default AuthProvider;
