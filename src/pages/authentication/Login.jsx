@@ -1,9 +1,23 @@
 import { Link } from "react-router-dom";
 import login from '../../../public/login.svg'
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../hooks/useAuth";
 
 
 const Login = () => {
+    const { signIn } = useAuth();
+
+    const handleSignIn = e => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        signIn(email, password)
+            .then(result => {
+                console.log(result.user)
+            })
+    }
     return (
         <div className="hero min-h-[calc(100vh-90px)] bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
@@ -11,7 +25,7 @@ const Login = () => {
                     <img src={login} alt="login" />
                 </div>
                 <div className="card card-body shrink-0 lg:w-1/2 shadow-2xl bg-base-100">
-                    <form onSubmit={'/'}>
+                    <form onSubmit={handleSignIn}>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -38,7 +52,7 @@ const Login = () => {
                     </div>
                     <div className="mt-6">
                         <button onClick={'/'} className="btn btn-block bg-gray-200">
-                        <FcGoogle className="text-2xl"></FcGoogle> Google
+                            <FcGoogle className="text-2xl"></FcGoogle> Google
                         </button>
                     </div>
                     <p className="text-xs text-center sm:px-6 dark:text-gray-600 ">Do not have an account?

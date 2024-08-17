@@ -1,7 +1,33 @@
 import { Link } from "react-router-dom";
 import login from '../../../public/login.svg'
+import useAuth from "../../hooks/useAuth";
 
 const Registration = () => {
+    const { createUser } = useAuth();
+
+    const handleRegister = e => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        console.log(email, password)
+
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user)
+                alert('Success')
+            })
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage)
+            })
+            form.email.value = ''
+            form.password.value = ''
+    }
+
+
     return (
         <div className="hero min-h-[calc(100vh-90px)] bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
@@ -9,13 +35,13 @@ const Registration = () => {
                     <img src={login} alt="" />
                 </div>
                 <div className="card card-body shrink-0 lg:w-1/2 shadow-2xl bg-base-100">
-                    <form onSubmit={'/'}>
-                        <div className="form-control">
+                    <form onSubmit={handleRegister}>
+                        {/* <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Your Name</span>
                             </label>
                             <input type="text" name="name" placeholder="Full name" className="input input-bordered" />
-                        </div>
+                        </div> */}
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>

@@ -1,8 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import icon from '../../../public/icons8-shopping-basket.gif'
+import useAuth from "../../hooks/useAuth";
 
 
 const Navbar = () => {
+    const { user, logOut } = useAuth();
+
     const navLinks = <>
         <li>
             <NavLink to={'/'}>Home</NavLink>
@@ -46,9 +49,15 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <div>
-                    <Link to='/login' className="px-4 py-2 bg-[#f85437] text-white hidden rounded-none lg:flex">Login</Link>
-                </div>
+                {user ?
+                    <div>
+                        <Link onClick={logOut} className="px-4 py-2 bg-[#f85437] text-white hidden rounded-none lg:flex">Logout</Link>
+                    </div>
+                    :
+                    <div>
+                        <Link to='/login' className="px-4 py-2 bg-[#f85437] text-white hidden rounded-none lg:flex">Login</Link>
+                    </div>
+                }
             </div>
         </div>
     );
