@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 
 
 const Login = () => {
-    const { signIn } = useAuth();
+    const { signIn, googleLogin } = useAuth();
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -17,6 +17,13 @@ const Login = () => {
             .then(result => {
                 console.log(result.user)
             })
+    }
+
+    const handleGoogleLogin = () => {
+        googleLogin()
+        .then(result=>{
+            console.log('google user',result.user)
+        })
     }
     return (
         <div className="hero min-h-[calc(100vh-90px)] bg-base-200">
@@ -51,7 +58,7 @@ const Login = () => {
                         <div className="flex-grow h-px  dark:bg-gray-300"></div>
                     </div>
                     <div className="mt-6">
-                        <button onClick={'/'} className="btn btn-block bg-gray-200">
+                        <button onClick={handleGoogleLogin} className="btn btn-block bg-gray-200">
                             <FcGoogle className="text-2xl"></FcGoogle> Google
                         </button>
                     </div>
